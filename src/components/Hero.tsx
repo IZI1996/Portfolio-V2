@@ -64,8 +64,8 @@ const CONSOLE_LINES = [
   { type: "ok",  text: "✓ role        → Full Stack Developer" },
   { type: "ok",  text: "✓ skills      → React · TypeScript · PHP · Laravel" },
   { type: "ok",  text: "✓ passion     → Building user-centric apps" },
-  { type: "ok",  text: "✓ status      → Open to opportunities ✨" },
-  { type: "done", text: "🚀 Ready. Let's build something amazing." },
+  { type: "ok",  text: "✓ status      → Open to opportunities " },
+  { type: "done", text: " Ready. Let's build something amazing." },
 ];
 
 type CodeChar = { lineIdx: number; tokenIdx: number; charIdx: number };
@@ -88,7 +88,6 @@ export default function Hero() {
   const cardWrapRef = useRef<HTMLDivElement>(null);
   const cardRef     = useRef<HTMLDivElement>(null);
 
-  // ── FIX 1: synchronous guard ref to prevent double-execution of handleRun ──
   const hasRun = useRef(false);
 
   const [typedText,    setTypedText]    = useState("");
@@ -208,7 +207,6 @@ export default function Hero() {
   useEffect(() => {
     if (!running) return;
     let i = 0;
-    // ── FIX 3: uniform delay — no off-by-one in the i===0 check ──
     function addLine() {
       if (i >= CONSOLE_LINES.length) return;
       setConsoleLines(prev => [...prev, CONSOLE_LINES[i]]);
@@ -234,7 +232,6 @@ export default function Hero() {
     }, 900);
   }
 
-  // ── FIX 1: use hasRun ref as a synchronous guard ──
   function handleRun() {
     if (hasRun.current) return;
     hasRun.current = true;
@@ -252,7 +249,6 @@ export default function Hero() {
     setTimeout(() => setRunClicked(false), 400);
   }
 
-  /* ── Render token ── */
   function renderToken(lineIdx: number, token: (typeof CODE_LINES)[0][0], tokenIdx: number) {
     if (token.t === "indent2") return <span key={tokenIdx} style={{ display: "inline-block", width: 24 }} />;
     if (token.t === "indent4") return <span key={tokenIdx} style={{ display: "inline-block", width: 48 }} />;
@@ -286,7 +282,6 @@ export default function Hero() {
         .c-br{color:#f78c6c}
         .c-def{color:var(--text)}
 
-        /* ── Card ── */
         .code-card {
           position: relative;
           width: 100%;
@@ -308,7 +303,6 @@ export default function Hero() {
           opacity: 0.6;
         }
 
-        /* Chrome */
         .code-header {
           display: flex;
           align-items: center;
@@ -336,7 +330,6 @@ export default function Hero() {
           box-shadow:0 0 7px rgba(0,245,160,0.5);
         }
 
-        /* Code body */
         .code-body {
           padding: 18px 0 18px;
           font-size: 12.5px;
@@ -360,7 +353,6 @@ export default function Hero() {
           line-height: 1.95;
         }
 
-        /* Console */
         .hero-console {
           border-top: 1px solid var(--border);
           background: rgba(4,4,13,0.95);
@@ -410,7 +402,6 @@ export default function Hero() {
         .con-text-cmd { color: var(--dim); font-style: italic; }
         .con-text-done { color: #ffbd2e; font-weight: 600; }
 
-        /* Run button */
         .hero-run-btn {
           display: inline-flex;
           align-items: center;
@@ -456,13 +447,11 @@ export default function Hero() {
         }
         .hero-run-btn.pressed::after { opacity: 1; }
 
-        /* Orbs */
         .orb { position:absolute; border-radius:50%; pointer-events:none; }
         .orb1 { width:400px;height:400px;top:-120px;left:-100px;background:radial-gradient(circle,rgba(61,156,255,0.18) 0%,transparent 70%);filter:blur(70px); }
         .orb2 { width:320px;height:320px;bottom:-80px;right:-60px;background:radial-gradient(circle,rgba(155,93,255,0.15) 0%,transparent 70%);filter:blur(70px); }
         .orb3 { width:260px;height:260px;top:40%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(0,245,160,0.08) 0%,transparent 70%);filter:blur(60px); }
 
-        /* Status bar */
         .statusbar {
           display: flex;
           align-items: center;
@@ -486,7 +475,6 @@ export default function Hero() {
         }
         @keyframes blink { 0%,100%{opacity:1}50%{opacity:0} }
 
-        /* Particles */
         .particle {
           position: absolute;
           width: 6px;
@@ -500,13 +488,11 @@ export default function Hero() {
           100% { transform: translate(var(--dx),var(--dy)) scale(0); opacity: 0; }
         }
 
-        /* Mouse cursor */
         @keyframes mouseRipple {
           from { transform: translate(-50%,-50%) scale(0.5); opacity:1; }
           to   { transform: translate(-50%,-50%) scale(2.5); opacity:0; }
         }
 
-        /* Cursor blink */
         .type-cur {
           display:inline-block;width:2px;height:.9em;
           background:var(--a1);vertical-align:middle;margin-left:1px;
@@ -514,8 +500,7 @@ export default function Hero() {
         }
       `}</style>
 
-      <section id="home" style={{ background: "var(--bg)", minHeight: "100vh", display: "flex", alignItems: "center", padding: "32px 24px", position: "relative", overflow: "hidden", fontFamily: "var(--mono)" }}>
-        {/* Orbs background */}
+      <section id="home" style={{ background: "var(--bg)", minHeight: "100vh", display: "flex", alignItems: "center", padding: "90px 24px 32px 24px", position: "relative", overflow: "hidden", fontFamily: "var(--mono)" }}>
         <div className="orb orb1" />
         <div className="orb orb2" />
         <div className="orb orb3" />
@@ -523,7 +508,6 @@ export default function Hero() {
         <div className="wrapper" style={{ width: "100%", maxWidth: 1200, margin: "0 auto" }}>
           <div className="hero-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "center" }}>
 
-            {/* ── LEFT ── */}
             <div>
               <div className="hero-badge" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 999, border: "1px solid var(--border)", background: "rgba(255,255,255,0.03)", fontSize: 12, color: "var(--a1)", marginBottom: 24 }}>
                 <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--a3)", boxShadow: "0 0 7px rgba(0,245,160,0.5)", display: "inline-block" }} />
@@ -559,11 +543,15 @@ export default function Hero() {
 
               <div style={{ display: "flex", gap: 12 }}>
                 {[
-                  { label: "GitHub", icon: <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg> },
-                  { label: "LinkedIn", icon: <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> },
-                  { label: "Email", icon: <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg> },
+                  { label: "GitHub", url: "https://github.com/kaoutarizi", icon: <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg> },
+                  { label: "LinkedIn", url: "https://linkedin.com/in/kaoutar-izi", icon: <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> },
+                  { label: "Email", url: "mailto:kaoutar.izi@example.com", icon: <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg> },
                 ].map(s => (
+<<<<<<< HEAD
                   <a key={s.label} href="instagram.com" aria-label={s.label} style={{ width: 40, height: 40, borderRadius: 10, border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--dim)", background: "rgba(255,255,255,0.02)", transition: "color .2s, border-color .2s, background .2s" }}
+=======
+                  <a key={s.label} href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.label} style={{ width: 40, height: 40, borderRadius: 10, border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--dim)", background: "rgba(255,255,255,0.02)", transition: "color .2s, border-color .2s, background .2s" }}
+>>>>>>> f08aeb4 (update)
                     onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = "var(--a1)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(61,156,255,0.35)"; }}
                     onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = "var(--dim)"; (e.currentTarget as HTMLElement).style.borderColor = "var(--border)"; }}>
                     {s.icon}
@@ -572,12 +560,10 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* ── RIGHT: Code Card ── */}
             <div ref={cardWrapRef} style={{ display: "flex", justifyContent: "center" }}>
               <div ref={cardRef} className="code-card">
                 <div className="code-card-glow" />
 
-                {/* Header */}
                 <div className="code-header">
                   <div className="dots">
                     <div className="dot red" />
@@ -589,7 +575,6 @@ export default function Hero() {
                     developer.ts
                   </div>
 
-                  {/* Run button */}
                   <button
                     id="hero-run-btn"
                     className={`hero-run-btn${codeFinished ? " visible" : ""}${runClicked ? " pressed" : ""}`}
@@ -601,7 +586,6 @@ export default function Hero() {
                   </button>
                 </div>
 
-                {/* Code body */}
                 <div className="code-body">
                   {CODE_LINES.map((line, li) => (
                     <div key={li} className="code-line">
@@ -614,11 +598,9 @@ export default function Hero() {
                   ))}
                 </div>
 
-                {/* Console */}
                 <div className="hero-console">
                   <div className="hero-console-bar">
                     <span className="hero-console-label">Console</span>
-                    {/* ── FIX: reset hasRun.current when user clears console ── */}
                     <span className="hero-console-clear" onClick={() => {
                       setConsoleLines([]);
                       setRunning(false);
@@ -633,7 +615,6 @@ export default function Hero() {
                         {codeFinished ? "Click ▶ Run to execute…" : ""}
                       </span>
                     )}
-                    {/* ── FIX 2: filter(Boolean) prevents crash if undefined slips in ── */}
                     {consoleLines.filter(Boolean).map((line, i) => (
                       <div key={i} className="con-line" style={{ animationDelay: `${i * 0.04}s` }}>
                         <span className={`con-arrow${line.type === "ok" ? " ok" : line.type === "done" ? " done" : ""}`}>
@@ -647,7 +628,6 @@ export default function Hero() {
                   </div>
                 </div>
 
-                {/* Status bar */}
                 <div className="statusbar">
                   <div>
                     <span className="status-dot" />
@@ -656,7 +636,6 @@ export default function Hero() {
                   <div style={{ color: "var(--a3)" }}>UTF-8 · TS</div>
                 </div>
 
-                {/* Burst particles */}
                 {particles.map((p, idx) => {
                   const angle = (idx / 12) * Math.PI * 2;
                   const dist = 40 + Math.random() * 30;
@@ -679,7 +658,6 @@ export default function Hero() {
                   );
                 })}
 
-                {/* Animated mouse cursor */}
                 {(mousePhase === "moving" || mousePhase === "clicking") && (
                   <div
                     style={{
