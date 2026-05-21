@@ -6,22 +6,25 @@ import { BriefcaseIcon, WrenchIcon, LightningIcon } from "./icons";
 
 export default function About() {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const imgRef     = useRef<HTMLImageElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const [flipped, setFlipped] = useState(false);
+  const [imgError, setImgError] = useState(false);
+
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
-    const img     = imgRef.current;
-    if (!wrapper || !img) return;
+    const img = imgRef.current;
+    if (!wrapper || !img || imgError) return;
     const restartGif = () => {
       const src = img.src;
-      img.src   = "";
-      img.src   = src;
+      img.src = "";
+      img.src = src;
     };
     wrapper.addEventListener("animationiteration", restartGif);
     return () => wrapper.removeEventListener("animationiteration", restartGif);
-  }, []);
+  }, [imgError]);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -48,7 +51,6 @@ export default function About() {
           90%  { transform: translateX(-2%);   }
           100% { transform: translateX(-100%); }
         }
-
         @keyframes peekInOutRight {
           0%   { transform: translateX(100%); }
           18%  { transform: translateX(2%);   }
@@ -58,7 +60,6 @@ export default function About() {
           90%  { transform: translateX(2%);   }
           100% { transform: translateX(100%); }
         }
-
         .peek-avatar {
           position: fixed !important;
           bottom: 0 !important;
@@ -66,47 +67,56 @@ export default function About() {
           pointer-events: none;
           display: block !important;
         }
-
         .peek-avatar.from-left {
           left: -110px !important;
           right: auto !important;
           animation: peekInOut 10s ease-in-out 1s infinite !important;
         }
-
         .peek-avatar.from-right {
           right: -100px !important;
           left: auto !important;
           animation: peekInOutRight 10s ease-in-out 1s infinite !important;
         }
-
         .peek-avatar img {
           display: block;
           width: clamp(300px, 24vw, 320px);
           height: auto;
           filter: drop-shadow(2px 21px 24px rgba(139,92,246,0.6));
         }
-
         .peek-avatar.from-right img {
           transform: scaleX(-1);
         }
-
         #about {
           position: relative;
           padding-bottom: clamp(60px, 10vw, 140px);
         }
+        /* إخفاء الـ GIF فقط على الهواتف (أقل من 768px) */
+        @media (max-width: 768px) {
+          .peek-avatar, #peek-avatar {
+            display: none !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+          }
+        }
       `}</style>
 
-      {/* ── Avatar ── */}
-      <div id='peek-avatar'
+      <div
+        id="peek-avatar"
         className={`peek-avatar ${flipped ? "from-right" : "from-left"}`}
         ref={wrapperRef}
       >
-        <img ref={imgRef} src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/assets/test.gif`}  alt="avatar" />
+        {!imgError && (
+          <img
+            ref={imgRef}
+            src={`${basePath}/assets/test.gif`}
+            alt="avatar"
+            onError={() => setImgError(true)}
+          />
+        )}
       </div>
 
       <section id="about" ref={sectionRef}>
         <div className="wrapper">
-
           <Reveal>
             <div className="section-tag">// about me</div>
             <h2 className="section-title">Who  <span>Am I?</span></h2>
@@ -114,14 +124,11 @@ export default function About() {
           </Reveal>
 
           <div className="about-grid" style={{ marginTop: 56 }}>
-
             <Reveal className="reveal-delay-1">
               <div className="profile-card">
                 <div className="profile-header">
                   <div className="profile-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" strokeWidth="2"
-                      strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                       <circle cx="12" cy="7" r="4"/>
                     </svg>
@@ -134,22 +141,22 @@ export default function About() {
 
                 <div className="code-data">
                   <div className="code-row">
-                    <span className="c-kw"  style={{fontFamily:"'JetBrains Mono',monospace",fontSize:".78rem"}}>const</span>
+                    <span className="c-kw" style={{fontFamily:"'JetBrains Mono',monospace",fontSize:".78rem"}}>const</span>
                     <span className="c-var" style={{fontFamily:"'JetBrains Mono',monospace",fontSize:".78rem"}}>fullName</span>
                     <span className="c-str" style={{fontFamily:"'JetBrains Mono',monospace",fontSize:".78rem"}}>&quot;Kaoutar IZI&quot;</span>
                   </div>
                   <div className="code-row">
-                    <span className="c-kw"  style={{fontFamily:"'JetBrains Mono',monospace",fontSize:".78rem"}}>const</span>
+                    <span className="c-kw" style={{fontFamily:"'JetBrains Mono',monospace",fontSize:".78rem"}}>const</span>
                     <span className="c-var" style={{fontFamily:"'JetBrains Mono',monospace",fontSize:".78rem"}}>role</span>
                     <span className="c-str" style={{fontFamily:"'JetBrains Mono',monospace",fontSize:".78rem"}}>&quot;Fullstack Dev&quot;</span>
                   </div>
                   <div className="code-row">
-                    <span className="c-kw"  style={{fontFamily:"'JetBrains Mono',monospace",fontSize:".78rem"}}>const</span>
+                    <span className="c-kw" style={{fontFamily:"'JetBrains Mono',monospace",fontSize:".78rem"}}>const</span>
                     <span className="c-var" style={{fontFamily:"'JetBrains Mono',monospace",fontSize:".78rem"}}>location</span>
                     <span className="c-str" style={{fontFamily:"'JetBrains Mono',monospace",fontSize:".78rem"}}>&quot;Tanger, Morocco&quot;</span>
                   </div>
                   <div className="code-row">
-                    <span className="c-kw"  style={{fontFamily:"'JetBrains Mono',monospace",fontSize:".78rem"}}>let</span>
+                    <span className="c-kw" style={{fontFamily:"'JetBrains Mono',monospace",fontSize:".78rem"}}>let</span>
                     <span className="c-var" style={{fontFamily:"'JetBrains Mono',monospace",fontSize:".78rem"}}>learning</span>
                     <span className="c-arr" style={{fontFamily:"'JetBrains Mono',monospace",fontSize:".78rem"}}>[&quot;Angular&quot;,&quot;TS&quot;]</span>
                   </div>
@@ -164,36 +171,32 @@ export default function About() {
 
             <Reveal className="reveal-delay-2">
               <div className="about-text-block">
-<p className="about-para">
-  I&apos;m <strong>Kaoutar Izi</strong> — a Full-Stack Developer
-  who believes code should solve real problems,
-  not just run without errors.
-</p>
-
-<p className="about-para">
-  I&apos;ve built complete production systems for companies
-  in aviation and industrial manufacturing — alone,
-  from the first meeting to the final deployment.
-</p>
-
-<p className="about-para">
-  At <strong>MK Aero</strong>, I automated an entire HR training process
-  — cutting 15+ hours of manual work weekly.
-  At <strong>Souriau</strong>, everything lived in Excel and VBA sheets.
-  I built a proper defect tracking system from scratch —
-  centralized storage, instant search, and clear comparisons.
-</p>
-
-<p className="about-para">
-  Currently building <strong>Fazaa</strong> — an AI-powered platform
-  that analyzes thousands of product reviews
-  and turns them into clear decisions.
-</p>
-
-<p className="about-para">
-  I don&apos;t wait to be told what to build.
-  I understand the problem first.
-</p>
+                <p className="about-para">
+                  I&apos;m <strong>Kaoutar Izi</strong> — a Full-Stack Developer
+                  who believes code should solve real problems,
+                  not just run without errors.
+                </p>
+                <p className="about-para">
+                  I&apos;ve built complete production systems for companies
+                  in aviation and industrial manufacturing — alone,
+                  from the first meeting to the final deployment.
+                </p>
+                <p className="about-para">
+                  At <strong>MK Aero</strong>, I automated an entire HR training process
+                  — cutting 15+ hours of manual work weekly.
+                  At <strong>Souriau</strong>, everything lived in Excel and VBA sheets.
+                  I built a proper defect tracking system from scratch —
+                  centralized storage, instant search, and clear comparisons.
+                </p>
+                <p className="about-para">
+                  Currently building <strong>Fazaa</strong> — an AI-powered platform
+                  that analyzes thousands of product reviews
+                  and turns them into clear decisions.
+                </p>
+                <p className="about-para">
+                  I don&apos;t wait to be told what to build.
+                  I understand the problem first.
+                </p>
 
                 <div className="stats-grid">
                   <div className="stat-card">
@@ -214,7 +217,6 @@ export default function About() {
                 </div>
               </div>
             </Reveal>
-
           </div>
         </div>
       </section>
