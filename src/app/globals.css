@@ -790,7 +790,9 @@ nav.scrolled {
   line-height: 1;
   margin-bottom: 4px;
 }
+
 .stat-label { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; }
+
 @media (max-width: 900px) {
   #peek-avatar img{
     display: none;
