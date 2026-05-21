@@ -495,7 +495,10 @@ export default function Hero() {
           .hero-grid {
             grid-template-columns: 1fr 1fr;
             gap: 48px;
+
           }
+      
+        
         }
 
         /* text content order: text first, card second on all sizes */
