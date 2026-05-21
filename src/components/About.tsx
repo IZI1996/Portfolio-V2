@@ -1,26 +1,39 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Reveal from "./Reveal";
 import { BriefcaseIcon, WrenchIcon, LightningIcon } from "./icons";
 
 export default function About() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const imgRef     = useRef<HTMLImageElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [flipped, setFlipped] = useState(false);
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
     const img     = imgRef.current;
     if (!wrapper || !img) return;
-
     const restartGif = () => {
       const src = img.src;
       img.src   = "";
       img.src   = src;
     };
-
     wrapper.addEventListener("animationiteration", restartGif);
     return () => wrapper.removeEventListener("animationiteration", restartGif);
+  }, []);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setFlipped(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+      },
+      { threshold: 0 }
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -36,21 +49,45 @@ export default function About() {
           100% { transform: translateX(-100%); }
         }
 
+        @keyframes peekInOutRight {
+          0%   { transform: translateX(100%); }
+          18%  { transform: translateX(2%);   }
+          65%  { transform: translateX(2%);   }
+          70%  { transform: translateX(12%);  }
+          76%  { transform: translateX(2%);   }
+          90%  { transform: translateX(2%);   }
+          100% { transform: translateX(100%); }
+        }
+
         .peek-avatar {
           position: fixed !important;
-          left: -110px  !important;
-          bottom: 0  !important;
+          bottom: 0 !important;
           z-index: 9999 !important;
           pointer-events: none;
-          animation: peekInOut 10s ease-in-out 1s infinite !important;
           display: block !important;
+        }
+
+        .peek-avatar.from-left {
+          left: -110px !important;
+          right: auto !important;
+          animation: peekInOut 10s ease-in-out 1s infinite !important;
+        }
+
+        .peek-avatar.from-right {
+          right: -100px !important;
+          left: auto !important;
+          animation: peekInOutRight 10s ease-in-out 1s infinite !important;
         }
 
         .peek-avatar img {
           display: block;
           width: clamp(300px, 24vw, 320px);
           height: auto;
-          filter: drop-shadow(5px 106px 24px rgba(139,92,246,0.6));
+          filter: drop-shadow(2px 21px 24px rgba(139,92,246,0.6));
+        }
+
+        .peek-avatar.from-right img {
+          transform: scaleX(-1);
         }
 
         #about {
@@ -60,11 +97,14 @@ export default function About() {
       `}</style>
 
       {/* ── Avatar ── */}
-      <div className="peek-avatar" ref={wrapperRef}>
+      <div
+        className={`peek-avatar ${flipped ? "from-right" : "from-left"}`}
+        ref={wrapperRef}
+      >
         <img ref={imgRef} src="/assets/test.gif" alt="avatar" />
       </div>
 
-      <section id="about">
+      <section id="about" ref={sectionRef}>
         <div className="wrapper">
 
           <Reveal>
@@ -124,23 +164,36 @@ export default function About() {
 
             <Reveal className="reveal-delay-2">
               <div className="about-text-block">
-                <p className="about-para">
-                  I&apos;m <strong>Kaoutar Izi</strong>, a passionate Fullstack Developer who believes
-                  every project should carry a meaningful purpose beyond just lines of code.
-                  Whether it&apos;s preserving cultural values, simplifying access to knowledge,
-                  or enhancing user experiences — I build solutions that truly matter.
-                </p>
-                <p className="about-para">
-                  My technical expertise covers both frontend and backend development. On the frontend,
-                  I&apos;m skilled in HTML, CSS, JavaScript, and frameworks like Bootstrap and React.
-                  On the backend, I work with PHP, MySQL, and RESTful APIs. Currently expanding
-                  with Angular and TypeScript.
-                </p>
-                <p className="about-para">
-                  During my internships at <strong>Souriau</strong> and <strong>MK Aero</strong>,
-                  I contributed to full‑cycle projects — from designing user interfaces to implementing
-                  backend logic and deploying applications.
-                </p>
+<p className="about-para">
+  I&apos;m <strong>Kaoutar Izi</strong> — a Full-Stack Developer
+  who believes code should solve real problems,
+  not just run without errors.
+</p>
+
+<p className="about-para">
+  I&apos;ve built complete production systems for companies
+  in aviation and industrial manufacturing — alone,
+  from the first meeting to the final deployment.
+</p>
+
+<p className="about-para">
+  At <strong>MK Aero</strong>, I automated an entire HR training process
+  — cutting 15+ hours of manual work weekly.
+  At <strong>Souriau</strong>, everything lived in Excel and VBA sheets.
+  I built a proper defect tracking system from scratch —
+  centralized storage, instant search, and clear comparisons.
+</p>
+
+<p className="about-para">
+  Currently building <strong>Fazaa</strong> — an AI-powered platform
+  that analyzes thousands of product reviews
+  and turns them into clear decisions.
+</p>
+
+<p className="about-para">
+  I don&apos;t wait to be told what to build.
+  I understand the problem first.
+</p>
 
                 <div className="stats-grid">
                   <div className="stat-card">

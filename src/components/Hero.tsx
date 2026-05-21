@@ -2,15 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 
-/* ── Rotating roles ── */
 const roles = [
   "Full Stack Developer",
   "Problem Solver",
-  "Creative Coder",
+ "Creative Coder",
   "UI Enthusiast",
 ];
 
-/* ── Code lines (developer object) ── */
 const CODE_LINES = [
   [
     { t: "kw", v: "const " },
@@ -43,13 +41,11 @@ const CODE_LINES = [
     { t: "indent2", v: "" },
     { t: "def", v: "status" },
     { t: "op", v: ": " },
-    { t: "str", v: "'Open to opportunities ✨'" },
+    { t: "str", v: "'Open to opportunities '" },
   ],
   [{ t: "br", v: "}" }, { t: "def", v: ";" }],
   [],
-  [
-    { t: "cm", v: "// let's see what she's made of 👇" },
-  ],
+  [{ t: "cm", v: "// let's see what she's made of " }],
   [
     { t: "var", v: "developer" },
     { t: "def", v: "." },
@@ -58,13 +54,12 @@ const CODE_LINES = [
   ],
 ];
 
-/* ── Console output lines ── */
 const CONSOLE_LINES = [
-  { type: "cmd", text: "$ initializing developer profile..." },
-  { type: "ok",  text: "✓ role        → Full Stack Developer" },
-  { type: "ok",  text: "✓ skills      → React · TypeScript · PHP · Laravel" },
-  { type: "ok",  text: "✓ passion     → Building user-centric apps" },
-  { type: "ok",  text: "✓ status      → Open to opportunities " },
+  { type: "cmd",  text: "$ initializing developer profile..." },
+  { type: "ok",   text: "✓ role        → Full Stack Developer" },
+  { type: "ok",   text: "✓ skills      → React · TypeScript · PHP · Laravel" },
+  { type: "ok",   text: "✓ passion     → Building user-centric apps" },
+  { type: "ok",   text: "✓ status      → Open to opportunities " },
   { type: "done", text: " Ready. Let's build something amazing." },
 ];
 
@@ -87,8 +82,7 @@ function buildCharSequence() {
 export default function Hero() {
   const cardWrapRef = useRef<HTMLDivElement>(null);
   const cardRef     = useRef<HTMLDivElement>(null);
-
-  const hasRun = useRef(false);
+  const hasRun      = useRef(false);
 
   const [typedText,    setTypedText]    = useState("");
   const [revealed,     setRevealed]     = useState<number[][]>(
@@ -105,7 +99,6 @@ export default function Hero() {
   const [mousePhase, setMousePhase] = useState<MousePhase>("idle");
   const [mousePos,   setMousePos]   = useState({ x: 0, y: 0 });
 
-  /* ── Typing animation ── */
   useEffect(() => {
     let ri = 0, ci = 0, deleting = false;
     let t: ReturnType<typeof setTimeout>;
@@ -127,7 +120,6 @@ export default function Hero() {
     return () => clearTimeout(t);
   }, []);
 
-  /* ── 3D tilt ── */
   useEffect(() => {
     const wrap = cardWrapRef.current;
     const card = cardRef.current;
@@ -135,7 +127,7 @@ export default function Hero() {
     const onMove = (e: MouseEvent) => {
       const r = wrap.getBoundingClientRect();
       const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
+      const y = (e.clientY - r.top)  / r.height - 0.5;
       card.style.transform = `perspective(1000px) rotateX(${y * -12}deg) rotateY(${x * 14}deg) translateY(-6px)`;
       card.style.transition = "none";
     };
@@ -145,10 +137,12 @@ export default function Hero() {
     };
     wrap.addEventListener("mousemove", onMove);
     wrap.addEventListener("mouseleave", onLeave);
-    return () => { wrap.removeEventListener("mousemove", onMove); wrap.removeEventListener("mouseleave", onLeave); };
+    return () => {
+      wrap.removeEventListener("mousemove", onMove);
+      wrap.removeEventListener("mouseleave", onLeave);
+    };
   }, []);
 
-  /* ── Code typing ── */
   useEffect(() => {
     const seq = buildCharSequence();
     let idx = 0;
@@ -170,7 +164,6 @@ export default function Hero() {
     return () => clearTimeout(t);
   }, []);
 
-  /* ── Mouse animation ── */
   useEffect(() => {
     if (!codeFinished) return;
     const runBtn = document.getElementById("hero-run-btn");
@@ -178,8 +171,8 @@ export default function Hero() {
     if (!runBtn || !card) return;
     const cardRect = card.getBoundingClientRect();
     const btnRect  = runBtn.getBoundingClientRect();
-    const targetX = btnRect.left - cardRect.left + btnRect.width / 2;
-    const targetY = btnRect.top  - cardRect.top  + btnRect.height / 2;
+    const targetX  = btnRect.left - cardRect.left + btnRect.width / 2;
+    const targetY  = btnRect.top  - cardRect.top  + btnRect.height / 2;
     const startX = 60, startY = 50;
     setMousePos({ x: startX, y: startY });
     setMousePhase("moving");
@@ -187,7 +180,7 @@ export default function Hero() {
     const duration = 1000;
     function animateMove(ts: number) {
       if (!startTime) startTime = ts;
-      const p = Math.min((ts - startTime) / duration, 1);
+      const p  = Math.min((ts - startTime) / duration, 1);
       const ep = 1 - Math.pow(1 - p, 3);
       setMousePos({ x: startX + (targetX - startX) * ep, y: startY + (targetY - startY) * ep });
       if (p < 1) { requestAnimationFrame(animateMove); }
@@ -203,7 +196,6 @@ export default function Hero() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [codeFinished]);
 
-  /* ── Console lines ── */
   useEffect(() => {
     if (!running) return;
     let i = 0;
@@ -217,7 +209,6 @@ export default function Hero() {
     return () => clearTimeout(t);
   }, [running]);
 
-  /* ── Burst particles on run ── */
   function spawnParticles(x: number, y: number) {
     const colors = ["#3d9cff", "#9b5dff", "#00f5a0", "#ffbd2e", "#ff6b6b"];
     const newParticles = Array.from({ length: 12 }, () => ({
@@ -239,7 +230,7 @@ export default function Hero() {
     setRunning(true);
     const btn = document.getElementById("hero-run-btn");
     if (btn) {
-      const r = btn.getBoundingClientRect();
+      const r    = btn.getBoundingClientRect();
       const card = cardRef.current;
       if (card) {
         const cr = card.getBoundingClientRect();
@@ -271,7 +262,6 @@ export default function Hero() {
           --text:#c8d0e0;--dim:#5a6478;--white:#fff;
           --mono:'JetBrains Mono',monospace;
         }
-
         .c-kw{color:#c792ea}
         .c-var{color:#82aaff}
         .c-op{color:#89ddff}
@@ -281,7 +271,6 @@ export default function Hero() {
         .c-fn{color:#ffcb6b}
         .c-br{color:#f78c6c}
         .c-def{color:var(--text)}
-
         .code-card {
           position: relative;
           width: 100%;
@@ -302,7 +291,6 @@ export default function Hero() {
           filter: blur(14px);
           opacity: 0.6;
         }
-
         .code-header {
           display: flex;
           align-items: center;
@@ -329,7 +317,6 @@ export default function Hero() {
           background:var(--a3);
           box-shadow:0 0 7px rgba(0,245,160,0.5);
         }
-
         .code-body {
           padding: 18px 0 18px;
           font-size: 12.5px;
@@ -352,7 +339,6 @@ export default function Hero() {
           font-size: 11px;
           line-height: 1.95;
         }
-
         .hero-console {
           border-top: 1px solid var(--border);
           background: rgba(4,4,13,0.95);
@@ -392,16 +378,13 @@ export default function Hero() {
           transform: translateY(5px);
           animation: conFadeIn .35s forwards;
         }
-        @keyframes conFadeIn {
-          to { opacity:1; transform:none; }
-        }
+        @keyframes conFadeIn { to { opacity:1; transform:none; } }
         .con-arrow { color: var(--a1); }
-        .con-arrow.ok { color: var(--a3); }
+        .con-arrow.ok   { color: var(--a3); }
         .con-arrow.done { color: #ffbd2e; }
-        .con-text-ok { color: var(--a3); }
-        .con-text-cmd { color: var(--dim); font-style: italic; }
+        .con-text-ok   { color: var(--a3); }
+        .con-text-cmd  { color: var(--dim); font-style: italic; }
         .con-text-done { color: #ffbd2e; font-weight: 600; }
-
         .hero-run-btn {
           display: inline-flex;
           align-items: center;
@@ -423,16 +406,9 @@ export default function Hero() {
           position: relative;
           overflow: hidden;
         }
-        .hero-run-btn.visible {
-          opacity: 1;
-          transform: scale(1) translateY(0);
-        }
-        .hero-run-btn:hover {
-          background: #1ffdb0;
-          box-shadow: 0 0 16px rgba(0,245,160,0.5);
-        }
-        .hero-run-btn.pressed,
-        .hero-run-btn:active {
+        .hero-run-btn.visible { opacity: 1; transform: scale(1) translateY(0); }
+        .hero-run-btn:hover { background: #1ffdb0; box-shadow: 0 0 16px rgba(0,245,160,0.5); }
+        .hero-run-btn.pressed, .hero-run-btn:active {
           background: #00cc88;
           transform: scale(0.92) translateY(1px);
           box-shadow: 0 0 24px rgba(0,245,160,0.7);
@@ -446,12 +422,10 @@ export default function Hero() {
           transition: opacity .2s;
         }
         .hero-run-btn.pressed::after { opacity: 1; }
-
         .orb { position:absolute; border-radius:50%; pointer-events:none; }
         .orb1 { width:400px;height:400px;top:-120px;left:-100px;background:radial-gradient(circle,rgba(61,156,255,0.18) 0%,transparent 70%);filter:blur(70px); }
         .orb2 { width:320px;height:320px;bottom:-80px;right:-60px;background:radial-gradient(circle,rgba(155,93,255,0.15) 0%,transparent 70%);filter:blur(70px); }
         .orb3 { width:260px;height:260px;top:40%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(0,245,160,0.08) 0%,transparent 70%);filter:blur(60px); }
-
         .statusbar {
           display: flex;
           align-items: center;
@@ -474,7 +448,6 @@ export default function Hero() {
           50%{box-shadow:0 0 0 4px rgba(0,245,160,0)}
         }
         @keyframes blink { 0%,100%{opacity:1}50%{opacity:0} }
-
         .particle {
           position: absolute;
           width: 6px;
@@ -487,12 +460,10 @@ export default function Hero() {
           0%   { transform: translate(0,0) scale(1); opacity: 1; }
           100% { transform: translate(var(--dx),var(--dy)) scale(0); opacity: 0; }
         }
-
         @keyframes mouseRipple {
           from { transform: translate(-50%,-50%) scale(0.5); opacity:1; }
           to   { transform: translate(-50%,-50%) scale(2.5); opacity:0; }
         }
-
         .type-cur {
           display:inline-block;width:2px;height:.9em;
           background:var(--a1);vertical-align:middle;margin-left:1px;
@@ -528,8 +499,13 @@ export default function Hero() {
               </p>
 
               <p style={{ fontSize: "0.9rem", color: "var(--dim)", lineHeight: 1.8, maxWidth: 440, marginBottom: 32 }}>
-                I design and code elegant solutions that transform ideas into seamless digital experiences. Driven by adaptability and a passion for building intuitive, user-centric applications.
-              </p>
+I don't just build websites.
+I build systems that solve real problems.
+
+I'm Kaoutar Izi — Full-Stack Developer.
+I've shipped complete production systems for Fortune 500 companies and startups — alone, from the first meeting to deployment.
+
+            </p>
 
               <div style={{ display: "flex", gap: 12, marginBottom: 32 }}>
                 <a href="KaoutarIziCv.pdf" download style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 22px", borderRadius: 10, background: "var(--a1)", color: "#0a0a0a", fontWeight: 700, fontSize: 13, textDecoration: "none", fontFamily: "var(--mono)" }}>
@@ -543,17 +519,20 @@ export default function Hero() {
 
               <div style={{ display: "flex", gap: 12 }}>
                 {[
-                  { label: "GitHub", url: "https://github.com/kaoutarizi", icon: <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg> },
-                  { label: "LinkedIn", url: "https://linkedin.com/in/kaoutar-izi", icon: <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> },
-                  { label: "Email", url: "mailto:kaoutar.izi@example.com", icon: <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg> },
+                  { label: "GitHub",   url: "https://github.com/IZI1996",       icon: <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg> },
+                  { label: "LinkedIn", url: "https://www.linkedin.com/in/kaoutar-izi-3249351b8/", icon: <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> },
+                  { label: "Email",    url: "mailto:izikaoutar@gmail.com",      icon: <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg> },
                 ].map(s => (
-<<<<<<< HEAD
-                  <a key={s.label} href="instagram.com" aria-label={s.label} style={{ width: 40, height: 40, borderRadius: 10, border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--dim)", background: "rgba(255,255,255,0.02)", transition: "color .2s, border-color .2s, background .2s" }}
-=======
-                  <a key={s.label} href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.label} style={{ width: 40, height: 40, borderRadius: 10, border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--dim)", background: "rgba(255,255,255,0.02)", transition: "color .2s, border-color .2s, background .2s" }}
->>>>>>> f08aeb4 (update)
+                  <a
+                    key={s.label}
+                    href={s.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    style={{ width: 40, height: 40, borderRadius: 10, border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--dim)", background: "rgba(255,255,255,0.02)", transition: "color .2s, border-color .2s, background .2s" }}
                     onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = "var(--a1)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(61,156,255,0.35)"; }}
-                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = "var(--dim)"; (e.currentTarget as HTMLElement).style.borderColor = "var(--border)"; }}>
+                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = "var(--dim)"; (e.currentTarget as HTMLElement).style.borderColor = "var(--border)"; }}
+                  >
                     {s.icon}
                   </a>
                 ))}
@@ -563,7 +542,6 @@ export default function Hero() {
             <div ref={cardWrapRef} style={{ display: "flex", justifyContent: "center" }}>
               <div ref={cardRef} className="code-card">
                 <div className="code-card-glow" />
-
                 <div className="code-header">
                   <div className="dots">
                     <div className="dot red" />
@@ -574,7 +552,6 @@ export default function Hero() {
                     <span className="fname-dot" />
                     developer.ts
                   </div>
-
                   <button
                     id="hero-run-btn"
                     className={`hero-run-btn${codeFinished ? " visible" : ""}${runClicked ? " pressed" : ""}`}
@@ -638,9 +615,9 @@ export default function Hero() {
 
                 {particles.map((p, idx) => {
                   const angle = (idx / 12) * Math.PI * 2;
-                  const dist = 40 + Math.random() * 30;
-                  const dx = Math.cos(angle) * dist;
-                  const dy = Math.sin(angle) * dist;
+                  const dist  = 40 + Math.random() * 30;
+                  const dx    = Math.cos(angle) * dist;
+                  const dy    = Math.sin(angle) * dist;
                   return (
                     <div
                       key={p.id}
@@ -659,22 +636,9 @@ export default function Hero() {
                 })}
 
                 {(mousePhase === "moving" || mousePhase === "clicking") && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      left: mousePos.x,
-                      top: mousePos.y,
-                      pointerEvents: "none",
-                      zIndex: 50,
-                      transform: "translate(-4px,-2px)",
-                    }}
-                  >
+                  <div style={{ position: "absolute", left: mousePos.x, top: mousePos.y, pointerEvents: "none", zIndex: 50, transform: "translate(-4px,-2px)" }}>
                     <svg width="22" height="26" viewBox="0 0 22 26" fill="none"
-                      style={{
-                        filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.5))",
-                        transform: mousePhase === "clicking" ? "scale(0.85)" : "scale(1)",
-                        transition: "transform .15s ease",
-                      }}
+                      style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.5))", transform: mousePhase === "clicking" ? "scale(0.85)" : "scale(1)", transition: "transform .15s ease" }}
                     >
                       <path d="M4 2L17 12L10.5 13.5L14.5 21.5L11.5 23L7.5 15L4 18.5V2Z" fill="white" stroke="rgba(0,0,0,0.35)" strokeWidth="1.2" strokeLinejoin="round"/>
                     </svg>
