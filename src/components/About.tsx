@@ -109,7 +109,7 @@ export default function About() {
 
           <Reveal>
             <div className="section-tag">// about me</div>
-            <h2 className="section-title">Who <span>Am I?</span></h2>
+            <h2 className="section-title">Who  <span>Am I?</span></h2>
             <div className="section-line" />
           </Reveal>
 
