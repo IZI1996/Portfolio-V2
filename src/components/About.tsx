@@ -101,7 +101,8 @@ export default function About() {
         className={`peek-avatar ${flipped ? "from-right" : "from-left"}`}
         ref={wrapperRef}
       >
-        <img ref={imgRef} src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/assets/test.gif`}  alt="avatar" />
+        <img ref={imgRef} src="/assets/test.gif" alt="avatar" />
+  
       </div>
 
       <section id="about" ref={sectionRef}>
