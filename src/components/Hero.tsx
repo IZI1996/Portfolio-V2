@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 const roles = [
   "Full Stack Developer",
   "Problem Solver",
- "Creative Coder",
+  "Creative Coder",
   "UI Enthusiast",
 ];
 
@@ -271,6 +271,8 @@ export default function Hero() {
         .c-fn{color:#ffcb6b}
         .c-br{color:#f78c6c}
         .c-def{color:var(--text)}
+
+        /* ── CODE CARD ── */
         .code-card {
           position: relative;
           width: 100%;
@@ -385,6 +387,8 @@ export default function Hero() {
         .con-text-ok   { color: var(--a3); }
         .con-text-cmd  { color: var(--dim); font-style: italic; }
         .con-text-done { color: #ffbd2e; font-weight: 600; }
+
+        /* ── RUN BUTTON ── */
         .hero-run-btn {
           display: inline-flex;
           align-items: center;
@@ -422,10 +426,14 @@ export default function Hero() {
           transition: opacity .2s;
         }
         .hero-run-btn.pressed::after { opacity: 1; }
+
+        /* ── ORBS ── */
         .orb { position:absolute; border-radius:50%; pointer-events:none; }
         .orb1 { width:400px;height:400px;top:-120px;left:-100px;background:radial-gradient(circle,rgba(61,156,255,0.18) 0%,transparent 70%);filter:blur(70px); }
         .orb2 { width:320px;height:320px;bottom:-80px;right:-60px;background:radial-gradient(circle,rgba(155,93,255,0.15) 0%,transparent 70%);filter:blur(70px); }
         .orb3 { width:260px;height:260px;top:40%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(0,245,160,0.08) 0%,transparent 70%);filter:blur(60px); }
+
+        /* ── STATUS BAR ── */
         .statusbar {
           display: flex;
           align-items: center;
@@ -448,6 +456,8 @@ export default function Hero() {
           50%{box-shadow:0 0 0 4px rgba(0,245,160,0)}
         }
         @keyframes blink { 0%,100%{opacity:1}50%{opacity:0} }
+
+        /* ── PARTICLES & MOUSE ── */
         .particle {
           position: absolute;
           width: 6px;
@@ -469,45 +479,142 @@ export default function Hero() {
           background:var(--a1);vertical-align:middle;margin-left:1px;
           animation:blink 1s step-end infinite;
         }
+
+        /* ══════════════════════════════════
+           RESPONSIVE — Mobile First
+        ══════════════════════════════════ */
+
+        /* hero-grid: stack on mobile, side-by-side on desktop */
+        .hero-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 40px;
+          align-items: center;
+        }
+        @media (min-width: 900px) {
+          .hero-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+          }
+        }
+
+        /* text content order: text first, card second on all sizes */
+        .hero-text { order: 1; }
+        .hero-card-col { order: 2; }
+
+        /* section padding */
+        .hero-section {
+          background: var(--bg);
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          padding: 100px 20px 48px;
+          position: relative;
+          overflow: hidden;
+          font-family: var(--mono);
+        }
+        @media (min-width: 640px) {
+          .hero-section { padding: 100px 32px 64px; }
+        }
+        @media (min-width: 900px) {
+          .hero-section { padding: 90px 24px 32px; }
+        }
+
+        /* wrapper max-width */
+        .hero-wrapper {
+          width: 100%;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        /* heading */
+        .hero-heading {
+          font-size: clamp(1.9rem, 7vw, 3.2rem);
+          font-weight: 800;
+          color: var(--white);
+          line-height: 1.15;
+          margin-bottom: 16px;
+          font-family: 'Oxanium', var(--mono);
+        }
+
+        /* description */
+        .hero-desc {
+          font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+          color: var(--dim);
+          line-height: 1.8;
+          max-width: 440px;
+          margin-bottom: 32px;
+          white-space: pre-line;
+        }
+
+        /* buttons row */
+        .hero-btns {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px;
+          margin-bottom: 32px;
+        }
+
+        /* socials row */
+        .hero-socials {
+          display: flex;
+          gap: 12px;
+          flex-wrap: wrap;
+        }
+
+        /* card column alignment */
+        .hero-card-col {
+          display: flex;
+          justify-content: center;
+        }
+
+        /* code card: full-width on small screens */
+        .code-card {
+          width: 100%;
+          max-width: 560px;
+        }
+
+        /* code body font shrinks on tiny screens */
+        @media (max-width: 400px) {
+          .code-body { font-size: 10.5px; }
+          .hero-console-output { font-size: 10px; }
+          .ln { min-width: 32px; padding-right: 8px; }
+        }
       `}</style>
 
-      <section id="home" style={{ background: "var(--bg)", minHeight: "100vh", display: "flex", alignItems: "center", padding: "90px 24px 32px 24px", position: "relative", overflow: "hidden", fontFamily: "var(--mono)" }}>
+      <section id="home" className="hero-section">
         <div className="orb orb1" />
         <div className="orb orb2" />
         <div className="orb orb3" />
 
-        <div className="wrapper" style={{ width: "100%", maxWidth: 1200, margin: "0 auto" }}>
-          <div className="hero-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48, alignItems: "center" }}>
+        <div className="hero-wrapper">
+          <div className="hero-grid">
 
-            <div>
-              <div className="hero-badge" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 999, border: "1px solid var(--border)", background: "rgba(255,255,255,0.03)", fontSize: 12, color: "var(--a1)", marginBottom: 24 }}>
+            {/* ── LEFT: Text content ── */}
+            <div className="hero-text">
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", borderRadius: 999, border: "1px solid var(--border)", background: "rgba(255,255,255,0.03)", fontSize: 12, color: "var(--a1)", marginBottom: 24 }}>
                 <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--a3)", boxShadow: "0 0 7px rgba(0,245,160,0.5)", display: "inline-block" }} />
                 {"// welcome to my portfolio"}
               </div>
 
-              <h1 style={{ fontSize: "clamp(2rem,4vw,3.2rem)", fontWeight: 800, color: "var(--white)", lineHeight: 1.15, marginBottom: 16, fontFamily: "'Oxanium', var(--mono)" }}>
+              <h1 className="hero-heading">
                 Hey, I&apos;m <br />
                 <span style={{ background: "linear-gradient(135deg,var(--a1),var(--a2))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                   Kaoutar IZI
                 </span>
               </h1>
 
-              <p style={{ fontSize: "1.1rem", color: "var(--text)", marginBottom: 16, minHeight: 28 }}>
+              <p style={{ fontSize: "clamp(0.9rem, 2.5vw, 1.1rem)", color: "var(--text)", marginBottom: 16, minHeight: 28 }}>
                 I&apos;m a{" "}
                 <span style={{ color: "var(--a1)", fontWeight: 500 }}>{typedText}</span>
                 <span style={{ animation: "blink 1s step-end infinite", display: "inline-block", width: 2, height: "1em", background: "var(--a1)", verticalAlign: "middle", marginLeft: 2 }} />
               </p>
 
-              <p style={{ fontSize: "0.9rem", color: "var(--dim)", lineHeight: 1.8, maxWidth: 440, marginBottom: 32 }}>
-I don't just build websites.
-I build systems that solve real problems.
+              <p className="hero-desc">
+                {`I don't just build websites.\nI build systems that solve real problems.\n\nI'm Kaoutar Izi — Full-Stack Developer.\nI've shipped complete production systems for Fortune 500 companies and startups — alone, from the first meeting to deployment.`}
+              </p>
 
-I'm Kaoutar Izi — Full-Stack Developer.
-I've shipped complete production systems for Fortune 500 companies and startups — alone, from the first meeting to deployment.
-
-            </p>
-
-              <div style={{ display: "flex", gap: 12, marginBottom: 32 }}>
+              <div className="hero-btns">
                 <a href="KaoutarIziCv.pdf" download style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 22px", borderRadius: 10, background: "var(--a1)", color: "#0a0a0a", fontWeight: 700, fontSize: 13, textDecoration: "none", fontFamily: "var(--mono)" }}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                   Download CV
@@ -517,7 +624,7 @@ I've shipped complete production systems for Fortune 500 companies and startups 
                 </a>
               </div>
 
-              <div style={{ display: "flex", gap: 12 }}>
+              <div className="hero-socials">
                 {[
                   { label: "GitHub",   url: "https://github.com/IZI1996",       icon: <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg> },
                   { label: "LinkedIn", url: "https://www.linkedin.com/in/kaoutar-izi-3249351b8/", icon: <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> },
@@ -539,7 +646,8 @@ I've shipped complete production systems for Fortune 500 companies and startups 
               </div>
             </div>
 
-            <div ref={cardWrapRef} style={{ display: "flex", justifyContent: "center" }}>
+            {/* ── RIGHT: Code card ── */}
+            <div className="hero-card-col" ref={cardWrapRef}>
               <div ref={cardRef} className="code-card">
                 <div className="code-card-glow" />
                 <div className="code-header">
@@ -649,6 +757,7 @@ I've shipped complete production systems for Fortune 500 companies and startups 
                 )}
               </div>
             </div>
+
           </div>
         </div>
       </section>

@@ -31,7 +31,7 @@ const projects = [
     title: "BIOLOOP — Smart Waste Management",
     desc: "Bilingual (FR/AR) landing page for an IoT smart waste management startup. Features dark mode, appointment modal with EmailJS, team showcase, and RTL support.",
     tags: ["Angular 19", "TypeScript", "Tailwind CSS", "EmailJS", "i18n"],
-    live: "https://github.com/SMARTBINN/FE_TEST", github: "#",
+    live: "https://smartbinn.github.io/FE_TEST/", github: "https://github.com/SMARTBINN/FE_TEST/tree/dev",
   },
   {
     id: 3,
@@ -41,7 +41,7 @@ const projects = [
     title: "Old Book Management System",
     desc: "A platform for buying and selling used books with reader notes to preserve cultural value and promote knowledge exchange.",
     tags: ["React", "PHP", "MySQL", "API", "Bootstrap"],
-    live: "#", github: "#",
+     github: "https://github.com/IZI1996/book-nest",
   },
   {
     id: 4,
@@ -51,7 +51,7 @@ const projects = [
     title: "FlavorFusion",
     desc: "An app to explore dishes via API, display ingredients, save favorites, and discover new culinary experiences.",
     tags: ["React", "CSS", "API", "PHP", "SQL"],
-    live: "#", github: "#",
+     github: "https://github.com/IZI1996/Food",
   },
   {
     id: 5,
@@ -61,7 +61,7 @@ const projects = [
     title: "Direction",
     desc: "An inspiring platform to help people discover their passion and connect with like-minded individuals on their journey.",
     tags: ["React", "HTML", "CSS", "API", "PHP"],
-    live: "#", github: "#",
+    github: "https://github.com/IZI1996/fil-rouge/blob/master/guide/views/index.php",
   },
   {
     id: 6,
@@ -71,7 +71,7 @@ const projects = [
     title: "Guidance Platform",
     desc: "A complementary platform to the passion discovery app helping users take the next step in their journey with guidance and clarity.",
     tags: ["React", "HTML", "API", "PHP", "SQL"],
-    live: "#", github: "#",
+   github: "https://github.com/IZI1996/fil-rouge/tree/master/guide/views",
   },
   {
     id: 7,
@@ -81,7 +81,7 @@ const projects = [
     title: "NFT Showcase",
     desc: "A demo site showcasing color harmony, 3D images, and modern UI design principles for digital assets.",
     tags: ["React", "HTML", "CSS", "PHP", "SQL"],
-    live: "#", github: "#",
+    github: "https://github.com/IZI1996/nft",
   },
   {
     id: 8,
@@ -91,7 +91,7 @@ const projects = [
     title: "AI Misa Solutions",
     desc: "Landing page for an AI robot product — Misa at the service of humans. Communicates, plays, educates, and protects children.",
     tags: ["React", "HTML", "CSS", "API", "PHP"],
-    live: "#", github: "#",
+     github: "#https://github.com/IZI1996/miisa",
   },
   {
     id: 9,
@@ -101,7 +101,7 @@ const projects = [
     title: "ToDo List Application",
     desc: "A simple yet functional ToDo List application to manage daily tasks efficiently with a clean, intuitive interface.",
     tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
-    live: "#", github: "#",
+     github: "https://github.com/IZI1996/todo-react",
   },
   {
     id: 10,
@@ -111,7 +111,7 @@ const projects = [
     title: "Basic Calculator",
     desc: "A small project for a calculator capable of performing basic arithmetic operations with a clean design.",
     tags: ["HTML", "CSS", "JavaScript", "Bootstrap"],
-    live: "#", github: "#",
+     github: "https://github.com/IZI1996/Calculator-main",
   },
 ];
 
