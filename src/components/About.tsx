@@ -11,7 +11,6 @@ export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
   const [flipped, setFlipped] = useState(false);
 
-  // ✅ يجيب basePath مباشرة من Next.js (configure-pages يضبطه تلقائياً)
   const { basePath } = useRouter();
 
   useEffect(() => {
