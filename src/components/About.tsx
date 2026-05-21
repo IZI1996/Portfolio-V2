@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import Reveal from "./Reveal";
 import { BriefcaseIcon, WrenchIcon, LightningIcon } from "./icons";
 
@@ -11,7 +10,8 @@ export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
   const [flipped, setFlipped] = useState(false);
 
-  const { basePath } = useRouter();
+  // ✅ يُحدَّد وقت البناء من الـ workflow
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
@@ -104,7 +104,6 @@ export default function About() {
         className={`peek-avatar ${flipped ? "from-right" : "from-left"}`}
         ref={wrapperRef}
       >
-        {/* ✅ basePath بدل process.env.NEXT_PUBLIC_BASE_PATH */}
         <img ref={imgRef} src={`${basePath}/assets/test.gif`} alt="avatar" />
       </div>
 
