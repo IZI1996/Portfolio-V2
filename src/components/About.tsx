@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import Reveal from "./Reveal";
 import { BriefcaseIcon, WrenchIcon, LightningIcon } from "./icons";
 
@@ -9,6 +10,9 @@ export default function About() {
   const imgRef     = useRef<HTMLImageElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const [flipped, setFlipped] = useState(false);
+
+  // ✅ يجيب basePath مباشرة من Next.js (configure-pages يضبطه تلقائياً)
+  const { basePath } = useRouter();
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
@@ -101,8 +105,8 @@ export default function About() {
         className={`peek-avatar ${flipped ? "from-right" : "from-left"}`}
         ref={wrapperRef}
       >
-        <img ref={imgRef} src="/assets/test.gif" alt="avatar" />
-  
+        {/* ✅ basePath بدل process.env.NEXT_PUBLIC_BASE_PATH */}
+        <img ref={imgRef} src={`${basePath}/assets/test.gif`} alt="avatar" />
       </div>
 
       <section id="about" ref={sectionRef}>
@@ -165,36 +169,36 @@ export default function About() {
 
             <Reveal className="reveal-delay-2">
               <div className="about-text-block">
-<p className="about-para">
-  I&apos;m <strong>Kaoutar Izi</strong> — a Full-Stack Developer
-  who believes code should solve real problems,
-  not just run without errors.
-</p>
+                <p className="about-para">
+                  I&apos;m <strong>Kaoutar Izi</strong> — a Full-Stack Developer
+                  who believes code should solve real problems,
+                  not just run without errors.
+                </p>
 
-<p className="about-para">
-  I&apos;ve built complete production systems for companies
-  in aviation and industrial manufacturing — alone,
-  from the first meeting to the final deployment.
-</p>
+                <p className="about-para">
+                  I&apos;ve built complete production systems for companies
+                  in aviation and industrial manufacturing — alone,
+                  from the first meeting to the final deployment.
+                </p>
 
-<p className="about-para">
-  At <strong>MK Aero</strong>, I automated an entire HR training process
-  — cutting 15+ hours of manual work weekly.
-  At <strong>Souriau</strong>, everything lived in Excel and VBA sheets.
-  I built a proper defect tracking system from scratch —
-  centralized storage, instant search, and clear comparisons.
-</p>
+                <p className="about-para">
+                  At <strong>MK Aero</strong>, I automated an entire HR training process
+                  — cutting 15+ hours of manual work weekly.
+                  At <strong>Souriau</strong>, everything lived in Excel and VBA sheets.
+                  I built a proper defect tracking system from scratch —
+                  centralized storage, instant search, and clear comparisons.
+                </p>
 
-<p className="about-para">
-  Currently building <strong>Fazaa</strong> — an AI-powered platform
-  that analyzes thousands of product reviews
-  and turns them into clear decisions.
-</p>
+                <p className="about-para">
+                  Currently building <strong>Fazaa</strong> — an AI-powered platform
+                  that analyzes thousands of product reviews
+                  and turns them into clear decisions.
+                </p>
 
-<p className="about-para">
-  I don&apos;t wait to be told what to build.
-  I understand the problem first.
-</p>
+                <p className="about-para">
+                  I don&apos;t wait to be told what to build.
+                  I understand the problem first.
+                </p>
 
                 <div className="stats-grid">
                   <div className="stat-card">
