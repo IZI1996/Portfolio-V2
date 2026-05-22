@@ -599,7 +599,7 @@ nav.scrolled {
   }
 }
 
-@media (min-width: 900px) {
+@media (max-width: 900px) {
   .hero-section {
     padding: 90px 32px 48px;
   }
