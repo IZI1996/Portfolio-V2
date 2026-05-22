@@ -639,13 +639,12 @@ nav.scrolled {
 
 .hero-text {
   order: 1;
-  /* ← FIX: منع النص من الخروج */
   min-width: 0;
   overflow: hidden;
 }
 .hero-card-col {
   order: 2;
-  min-width: 0;              /* ← إضافة */
+  min-width: 0;             
 }
 
 .hero-heading {
