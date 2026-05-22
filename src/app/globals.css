@@ -603,6 +603,12 @@ nav.scrolled {
   .hero-section {
     padding: 90px 32px 48px;
   }
+   .orb-2{
+    max-width: fit-content;
+   }
+      .orb-3{
+    max-width: fit-content;
+   }
 }
 
 .hero-wrapper {
