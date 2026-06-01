@@ -572,10 +572,19 @@ nav.scrolled {
 
 }
 
-@media (min-width: 900px) {
+@media (max-width: 900px) {
   .hero-section {
-    padding: 90px 32px 48px;  /* ← balanced vertical spacing */
+    padding: 90px 32px 48px;
   }
+   .orb-1{
+    width: fit-content;
+   }
+   .orb-2{
+    width: fit-content;
+   }
+      .orb-3{
+    width: fit-content;
+   }
 }
 
 .hero-wrapper {
@@ -599,8 +608,15 @@ nav.scrolled {
 
 }
 
-.hero-text { order: 1; }
-.hero-card-col { order: 2; }
+.hero-text {
+  order: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+.hero-card-col {
+  order: 2;
+  min-width: 0;             
+}
 
 .hero-heading {
   font-size: clamp(1.9rem, 7vw, 3.2rem);
