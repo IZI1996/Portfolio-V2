@@ -22,7 +22,7 @@ const LIVE_MIZA = ("./assets/vedios/MISA.mp4");
 const LIVE_TODO = ("./assets/vedios/todo.mp4");
 const LIVE_GUIDANCE = ("./assets/vedios/guide.mp4");
 const LIVE_CALCULATOR = ("./assets/vedios/Calculator.mp4");
-const LIVE_MOVIEKIDS = ("./assets/vedios/movies.mp4");
+const LIVE_MOVIEKIDS = ("./assets/vedios/Movies.mp4");
 const LIVE_FOOD = ("./assets/vedios/food.mp4");
 
 
