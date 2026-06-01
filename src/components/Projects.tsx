@@ -67,7 +67,7 @@ const projects = [
   title: "Wonder Realm",
   desc: "A safe and joyful digital world for children — designed with passion, featuring smart age-based content filtering, smooth animations, and a trustworthy experience for both kids and parents.",
   tags: ["React.js", "SCSS", "API", "CSS Animations"],
- live: LIVE_MovieKids, github: "https://lnkd.in/eQx3hN98",
+ live: LIVE_MovieKids , github: "https://lnkd.in/eQx3hN98",
 },
   {
     id: 5,
