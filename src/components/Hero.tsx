@@ -613,12 +613,9 @@ export default function Hero() {
                 <span style={{ animation: "blink 1s step-end infinite", display: "inline-block", width: 2, height: "1em", background: "var(--a1)", verticalAlign: "middle", marginLeft: 2 }} />
               </p>
 
-           <p className="hero-desc">
-  I don't just build websites.<br />
-  I build systems that solve real problems.<br /><br />
-  I'm Kaoutar Izi — Full-Stack Developer.<br />
-  I've shipped complete production systems for Fortune 500 companies and startups — alone, from the first meeting to deployment.
-</p>
+              <p className="hero-desc">
+                {`I don't just build websites.\nI build systems that solve real problems.\n\nI'm Kaoutar Izi — Full-Stack Developer.\nI've shipped complete production systems, from the first meeting to deployment.`}
+              </p>
 
               <div className="hero-btns">
                 <a href="KaoutarIziCv.pdf" download style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 22px", borderRadius: 10, background: "var(--a1)", color: "#0a0a0a", fontWeight: 700, fontSize: 13, textDecoration: "none", fontFamily: "var(--mono)" }}>
