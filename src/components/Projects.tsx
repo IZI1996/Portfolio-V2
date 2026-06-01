@@ -11,7 +11,7 @@ const IMG_MIZA = ("./assets/images/miza.png");
 const IMG_TODO = ("./assets/images/todo.png");
 const IMG_CALCULATOR = ("./assets/images/calculator.png");
 const IMG_GUIDANCE = ("./assets/images/guidance.png");
-const IMG_WONDER_REALM = ("./assets/images/movieKids.png");
+const IMG_WONDER_REALM = ("./assets/images/movies.png");
 
 
 const LIVE_FAZAA = ("./assets/vedios/testvid.mp4");
