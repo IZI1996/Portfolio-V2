@@ -1,29 +1,29 @@
 "use client";
 import { useState } from "react";
 import Reveal from "./Reveal";
-const IMG_FAZAA = ("../assets/images/fazaa.png");
-const IMG_BIOLOOP = ("../assets/images/bioloop.png");
-const IMG_BOOK = ("../assets/images/book.png");
-const IMG_FOOD = ("../assets/images/food.png");
-const IMG_DIRECTION = ("../assets/images/direction.png");
-const IMG_NFT = ("../assets/images/nft.png");
-const IMG_MIZA = ("../assets/images/miza.png");
-const IMG_TODO = ("../assets/images/todo.png");
-const IMG_CALCULATOR = ("../assets/images/calculator.png");
-const IMG_GUIDANCE = ("../assets/images/guidance.png");
-const IMG_WONDER_REALM = ("../assets/images/movieKids.png");
+const IMG_FAZAA = ("./assets/images/fazaa.png");
+const IMG_BIOLOOP = ("./assets/images/bioloop.png");
+const IMG_BOOK = ("./assets/images/book.png");
+const IMG_FOOD = ("./assets/images/food.png");
+const IMG_DIRECTION = ("./assets/images/direction.png");
+const IMG_NFT = ("./assets/images/nft.png");
+const IMG_MIZA = ("./assets/images/miza.png");
+const IMG_TODO = ("./assets/images/todo.png");
+const IMG_CALCULATOR = ("./assets/images/calculator.png");
+const IMG_GUIDANCE = ("./assets/images/guidance.png");
+const IMG_WONDER_REALM = ("./assets/images/movieKids.png");
 
 
-const LIVE_FAZAA = ("../assets/vedios/testvid.mp4");
-const LIVE_BOOK = ("../assets/vedios/book.mp4");
-const LIVE_DIRECTION = ("../assets/vedios/derction.mp4");
-const LIVE_NFT = ("../assets/vedios/nft.mp4");
-const LIVE_MIZA = ("../assets/vedios/MISA.mp4");
-const LIVE_TODO = ("../assets/vedios/todo.mp4");
-const LIVE_GUIDANCE = ("../assets/vedios/guide.mp4");
-const LIVE_CALCULATOR = ("../assets/vedios/Calculator.mp4");
-const LIVE_MovieKids = ("../assets/vedios/movieKids.mp4");
-const LIVE_FOOD = ("../assets/vedios/food.mp4");
+const LIVE_FAZAA = ("./assets/vedios/testvid.mp4");
+const LIVE_BOOK = ("./assets/vedios/book.mp4");
+const LIVE_DIRECTION = ("./assets/vedios/derction.mp4");
+const LIVE_NFT = ("./assets/vedios/nft.mp4");
+const LIVE_MIZA = ("./assets/vedios/MISA.mp4");
+const LIVE_TODO = ("./assets/vedios/todo.mp4");
+const LIVE_GUIDANCE = ("./assets/vedios/guide.mp4");
+const LIVE_CALCULATOR = ("./assets/vedios/Calculator.mp4");
+const LIVE_MovieKids = ("./assets/vedios/movieKids.mp4");
+const LIVE_FOOD = ("./assets/vedios/food.mp4");
 
 
 
